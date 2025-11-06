@@ -87,12 +87,13 @@ open class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             
             animator.addCompletion { _ in
                 let isCancelled = transitionContext.transitionWasCancelled
-                transitionContext.completeTransition(!isCancelled)
                 
                 if !isCancelled {
                     photoViewerController.presentationAnimationDidFinish()
                 }
-                
+
+                transitionContext.completeTransition(!isCancelled)
+
                 // View controller appearance status
                 toViewController.endAppearanceTransition()
                 fromViewController.endAppearanceTransition()
@@ -146,12 +147,13 @@ open class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             
             animator.addCompletion { _ in
                 let isCancelled = transitionContext.transitionWasCancelled
-                transitionContext.completeTransition(!isCancelled)
                 
                 if !isCancelled {
                     photoViewerController.dismissalAnimationDidFinish()
                 }
-                
+
+                transitionContext.completeTransition(!isCancelled)
+
                 // View controller appearance status
                 toViewController.endAppearanceTransition()
                 fromViewController.endAppearanceTransition()
