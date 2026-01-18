@@ -89,7 +89,9 @@ open class DTPhotoViewerController: UIViewController {
             }
         }
     }
-    
+
+    public var transitionAlphaOnCompletion: Bool = false
+
     /// Collection view.
     /// This will be used when displaying multiple images.
     fileprivate(set) var collectionView: UICollectionView

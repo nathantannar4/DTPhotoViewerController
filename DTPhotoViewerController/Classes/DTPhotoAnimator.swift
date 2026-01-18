@@ -144,19 +144,31 @@ open class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             else {
                 animator = UIViewPropertyAnimator(duration: duration, curve: .linear, animations: animation)
             }
-            
             animator.addCompletion { _ in
                 let isCancelled = transitionContext.transitionWasCancelled
-                
                 if !isCancelled {
                     photoViewerController.dismissalAnimationDidFinish()
                 }
 
-                transitionContext.completeTransition(!isCancelled)
+                if photoViewerController.transitionAlphaOnCompletion {
+                    UIView.animate(
+                        withDuration: 0.2
+                    ) {
+                        photoViewerController.imageView.alpha = 0
+                    } completion: { _ in
+                        transitionContext.completeTransition(!isCancelled)
 
-                // View controller appearance status
-                toViewController.endAppearanceTransition()
-                fromViewController.endAppearanceTransition()
+                        // View controller appearance status
+                        toViewController.endAppearanceTransition()
+                        fromViewController.endAppearanceTransition()
+                    }
+                } else {
+                    transitionContext.completeTransition(!isCancelled)
+
+                    // View controller appearance status
+                    toViewController.endAppearanceTransition()
+                    fromViewController.endAppearanceTransition()
+                }
             }
             
             // Layer animation
